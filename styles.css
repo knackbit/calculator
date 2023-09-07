@@ -26,10 +26,11 @@
     gap: .5em;
 }
 
-.row-container > div {
+button {
     flex: 1;
-    background-color: rgb(73, 73, 73);
-    padding: 1em;
+    padding: 0;
+    margin: 0;
+    font-size: 2em;
 }
 
 #display {
@@ -41,4 +42,6 @@
     flex-direction: column;
     justify-content: center;
     flex: 1;
+    background-color: rgb(73, 73, 73);
+    padding: 1em;
 }
