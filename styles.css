@@ -1,7 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 #main-content {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: 'Roboto', sans-serif;
 }
 
 #calc-container {
@@ -9,24 +12,26 @@
     flex-direction: column;
     width: 600px;
     height: auto;
-    aspect-ratio: .5;
+    aspect-ratio: .75;
     background-color: grey;
+    padding: 1em;
+    gap: .5em;
 }
 
 .row-container {
     display: flex;
     flex: 1;
-    align-items: center;
     text-align: center;
-
+    align-items: stretch;
+    gap: .5em;
 }
 
 .row-container > div {
     flex: 1;
+    background-color: rgb(73, 73, 73);
     padding: 1em;
-    
 }
 
 #display {
-    text-align: end;
+    text-align: right;
 }
