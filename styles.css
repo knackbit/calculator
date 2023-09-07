@@ -1,0 +1,32 @@
+#main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#calc-container {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    height: auto;
+    aspect-ratio: .5;
+    background-color: grey;
+}
+
+.row-container {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    text-align: center;
+
+}
+
+.row-container > div {
+    flex: 1;
+    padding: 1em;
+    
+}
+
+#display {
+    text-align: end;
+}
