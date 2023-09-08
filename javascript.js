@@ -14,43 +14,40 @@ const divide = function(intOne, intTwo) {
     return intOne / intTwo;
 }
 
-let operateObj = {
-    numOne: null, 
-    numTwo: null,
-    operator: null
-}
+
+let numOne = null; 
+let numTwo = null;
+let operator = null;
+
 
 let screenValue = 0;
 document.getElementById("display").textContent = screenValue;
 
 // function that takes in operateObj and calls the appropriate function to do the math based on operateObj.operator
-const operate = function(equationObj) {
-    const numA = equationObj.numOne;
-    const numB = equationObj.numTwo;
-    const operator = equationObj.operator;
-    return operator === "+" ? add(numA, numB)
-        : operator === "-" ? subtract(numA, numB)
-        : operator === "/" ? divide(numA, numB)
-        : operator === "*" ? multiply(numA, numB)
+const operate = function() {
+    return operator === "+" ? add(numOne, numTwo)
+        : operator === "-" ? subtract(numOne, numTwo)
+        : operator === "/" ? divide(numOne, numTwo)
+        : operator === "*" ? multiply(numOne, numTwo)
         : "No Operator";
 }
 
 function updateEquationNumbers(eventNumber) {
-    if(operateObj.numOne === null) {
-        operateObj.numOne = eventNumber;
-        screenValue = operateObj.numOne;
+    if(numOne === null) {
+        numOne = eventNumber;
+        screenValue = numOne;
     } 
     else {
-        if(operateObj.operator === null) {
-            appendNumber(operateObj.numOne, eventNumber);
+        if(operator === null) {
+            appendNumber(numOne, eventNumber);
         }
         else {
-            if(operateObj.numTwo === null) {
-                operateObj.numTwo = eventNumber;
-                screenValue = operateObj.numTwo;
+            if(numTwo === null) {
+                numTwo = eventNumber;
+                screenValue = numTwo;
             }
             else {
-                appendNumber(operateObj.numTwo, eventNumber);
+                appendNumber(numTwo, eventNumber);
             }
         }
     }
@@ -58,6 +55,9 @@ function updateEquationNumbers(eventNumber) {
 
 
 function appendNumber(currentNum, addNum) {
+    if(currentNum === null) {
+
+    }
     currentNum = Number(currentNum + toString(addNum));
     screenValue = currentNum;
 }            
