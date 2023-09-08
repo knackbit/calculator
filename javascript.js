@@ -32,7 +32,8 @@ const operate = function() {
         : "No Operator";
 }
 
-function updateEquationNumbers(eventNumber) {
+// checks which number of the equation to append the number
+function checkEquationNumbers(eventNumber) {
     if(operator === null) {
         numOne = appendNumber(numOne, eventNumber);
     }
