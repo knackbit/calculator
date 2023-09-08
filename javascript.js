@@ -33,34 +33,28 @@ const operate = function() {
 }
 
 function updateEquationNumbers(eventNumber) {
-    if(numOne === null) {
-        numOne = eventNumber;
-        screenValue = numOne;
-    } 
-    else {
-        if(operator === null) {
-            appendNumber(numOne, eventNumber);
-        }
-        else {
-            if(numTwo === null) {
-                numTwo = eventNumber;
-                screenValue = numTwo;
-            }
-            else {
-                appendNumber(numTwo, eventNumber);
-            }
-        }
+    if(operator === null) {
+        numOne = appendNumber(numOne, eventNumber);
+    }
+    else{
+        numTwo = appendNumber(numTwo, eventNumber);
     }
 }
 
 
 function appendNumber(currentNum, addNum) {
     if(currentNum === null) {
-
+        currentNum = addNum;
+        screenValue = currentNum;
+        return currentNum;
     }
-    currentNum = Number(currentNum + toString(addNum));
-    screenValue = currentNum;
-}            
+    else{
+        currentNum = Number(currentNum + toString(addNum));
+        screenValue = currentNum;
+        return currentNum;
+    }            
+    }
+
 
 /*
 Enter a number and three possible states
@@ -93,10 +87,11 @@ assign event listener to all operator buttons
 
     
 */
-let btn = document.querySelectorAll('button');
-btn.forEach(element => {
-    element.addEventListener('click')
-});
+
+// let btn = document.querySelectorAll('button');
+// btn.forEach(element => {
+//     element.addEventListener('click')
+// });
 
 
 module.exports = {
