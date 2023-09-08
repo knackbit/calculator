@@ -15,7 +15,7 @@ const divide = function(intOne, intTwo) {
 }
 
 let operateObj = {
-    numOne: 0, 
+    numOne: null, 
     numTwo: null,
     operator: null
 }
@@ -35,15 +35,62 @@ const operate = function(equationObj) {
         : "No Operator";
 }
 
+function updateEquationNumbers(eventNumber) {
+    if(operateObj.numOne === null) {
+        operateObj.numOne = eventNumber;
+        screenValue = operateObj.numOne;
+    } 
+    else {
+        if(operateObj.operator === null) {
+            appendNumber(operateObj.numOne, eventNumber);
+        }
+        else {
+            if(operateObj.numTwo === null) {
+                operateObj.numTwo = eventNumber;
+                screenValue = operateObj.numTwo;
+            }
+            else {
+                appendNumber(operateObj.numTwo, eventNumber);
+            }
+        }
+    }
+}
+
+
+function appendNumber(currentNum, addNum) {
+    currentNum = Number(currentNum + toString(addNum));
+    screenValue = currentNum;
+}            
 
 /*
+Enter a number and three possible states
+    If operateObj.numOne = null
+        numOne = eventnumber
+        screenvalue = numOne
+    If operateObj.numOne != null
+        If operateobj.operator = null
+            appendNumber(operateObj.numOne, eventnumber)
+            screenvalue = numOne
+        If operateobj.operator != null
+            If numTwo = null
+                numTwo = eventnumber
+            if numbTwo != null
+                appendNumber(operateObj.numTwo, eventnumber)
+                screenvalue = numtwo
+    
+
+
+
+appendNumber(currentNum, addNum) {
+    currentNum = Number(currentNum + toString(addNum))
+}            
 assign event listeners to all numbers on click
-    If screenValue is a number
         If screenValue is equal to 0 (as in the display was cleared)
             set screenValue equal to eventValue
         else if not 0 (there's already a number entered)
             screenValue equal to Number(screenValue + string(eventValue)) (appends number to end of current value)
 assign event listener to all operator buttons
+
     
 */
 let btn = document.querySelectorAll('button');
