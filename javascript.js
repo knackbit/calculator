@@ -21,7 +21,8 @@ let operator = null;
 
 
 let screenValue = 0;
-document.getElementById("display").textContent = screenValue;
+displayEle = document.getElementById("display")
+displayEle.textContent = screenValue;
 
 // function that takes in operateObj and calls the appropriate function to do the math based on operateObj.operator
 const operate = function() {
@@ -47,11 +48,13 @@ function appendNumber(currentNum, addNum) {
     if(currentNum === null) {
         currentNum = addNum;
         screenValue = currentNum;
+        displayEle.textContent = screenValue;
         return currentNum;
     }
     else{
         currentNum = Number(currentNum + toString(addNum));
         screenValue = currentNum;
+        displayEle.textContent = screenValue;
         return currentNum;
     }            
     }
@@ -89,10 +92,13 @@ assign event listener to all operator buttons
     
 */
 
-// let btn = document.querySelectorAll('button');
-// btn.forEach(element => {
-//     element.addEventListener('click')
-// });
+let btn = document.querySelectorAll('.number');
+btn.forEach(element => {
+    element.addEventListener('click', (e) => {
+        console.log(e.target.textContent);
+        checkEquationNumbers(Number(e.target.textContent));
+    })
+});
 
 
 module.exports = {
