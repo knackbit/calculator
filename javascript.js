@@ -52,7 +52,7 @@ function appendNumber(currentNum, addNum) {
         return currentNum;
     }
     else{
-        currentNum = Number(currentNum + toString(addNum));
+        currentNum = Number(currentNum + addNum.toString());
         screenValue = currentNum;
         displayEle.textContent = screenValue;
         return currentNum;
