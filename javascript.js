@@ -74,6 +74,13 @@ function updateOperator(eventOperator) {
         numOne = screenValue;  //in case of entering operator before a value
     }
 }
+
+function clear() {
+    numOne = null;
+    numTwo = null;
+    operator = null;
+    updateScreenValue(0);
+}
 /*
 
 IF numTwo !== null
@@ -140,6 +147,10 @@ document.querySelector('#equals').addEventListener('click', () => {
         numOne = operate();
         updateScreenValue(numOne);
     }
+})
+
+document.querySelector('#clear').addEventListener('click', () => {
+    clear();
 })
 
 module.exports = {
