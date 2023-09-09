@@ -47,17 +47,46 @@ function checkEquationNumbers(eventNumber) {
 function appendNumber(currentNum, addNum) {
     if(currentNum === null) {
         currentNum = addNum;
-        screenValue = currentNum;
-        displayEle.textContent = screenValue;
+        updateScreenValue(currentNum);
         return currentNum;
     }
     else{
         currentNum = Number(currentNum + addNum.toString());
-        screenValue = currentNum;
-        displayEle.textContent = screenValue;
+        updateScreenValue(currentNum);
         return currentNum;
     }            
+}
+
+function updateScreenValue(updateValue) {
+    screenValue = updateValue
+    displayEle.textContent = screenValue
+}
+
+
+function updateOperator(eventOperator) {
+    if(numTwo !== null) {
+        numOne = operate();
+        updateScreenValue(numOne);
+        operator = eventOperator.toString();
     }
+    else {
+        operator = eventOperator.toString();
+        numOne = screenValue;  //in case of entering operator before a value
+    }
+}
+/*
+
+IF numTwo !== null
+    numOne = operate()
+    updateScreenValue(numOne)
+    operator = eventOperator.toString()
+else {
+    operator = eventOperator.toString()
+}
+
+
+IF operator === null (no curr)
+*/
 
 
 /*
@@ -95,11 +124,23 @@ assign event listener to all operator buttons
 let btn = document.querySelectorAll('.number');
 btn.forEach(element => {
     element.addEventListener('click', (e) => {
-        console.log(e.target.textContent);
         checkEquationNumbers(Number(e.target.textContent));
     })
 });
 
+let opBtn = document.querySelectorAll('.operator');
+opBtn.forEach(element => {
+    element.addEventListener('click', (e) => {
+        updateOperator(e.target.textContent);
+    })
+})
+
+document.querySelector('#equals').addEventListener('click', () => {
+    if(numOne !== null && numTwo !== null && operator !== null) {
+        numOne = operate();
+        updateScreenValue(numOne);
+    }
+})
 
 module.exports = {
     add,
