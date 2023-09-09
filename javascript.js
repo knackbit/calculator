@@ -26,11 +26,28 @@ displayEle.textContent = screenValue;
 
 // function that takes in operateObj and calls the appropriate function to do the math based on operateObj.operator
 const operate = function() {
-    return operator === "+" ? add(numOne, numTwo)
-        : operator === "-" ? subtract(numOne, numTwo)
-        : operator === "/" ? divide(numOne, numTwo)
-        : operator === "*" ? multiply(numOne, numTwo)
-        : "No Operator";
+    if(operator === "/" && numTwo === 0) {
+        updateScreenValue("self-destructing");
+        numOne = null;
+        numTwo = null;
+        operator = null;
+    }
+    else if(operator === "+") {
+        numOne = add(numOne, numTwo);
+        updateScreenValue(numOne);
+    }
+    else if(operator === "-") {
+        numOne = subtract(numOne, numTwo);
+        updateScreenValue(numOne);
+    }
+    else if(operator === "/") {
+        numOne = divide(numOne, numTwo);
+        updateScreenValue(numOne)
+    }
+    else if(operator === "*") {
+        numOne = multiply(numOne, numTwo);
+        updateScreenValue(numOne);
+    }
 }
 
 // checks which number of the equation to append the number
@@ -65,13 +82,16 @@ function updateScreenValue(updateValue) {
 
 function updateOperator(eventOperator) {
     if(numTwo !== null) {
-        numOne = operate();
-        updateScreenValue(numOne);
+        operate();
+        operator = eventOperator.toString();
+        numTwo = null;
+    }
+    else if(numOne === null) {
+        numOne = 0;
         operator = eventOperator.toString();
     }
     else {
         operator = eventOperator.toString();
-        numOne = screenValue;  //in case of entering operator before a value
     }
 }
 
@@ -144,8 +164,7 @@ opBtn.forEach(element => {
 
 document.querySelector('#equals').addEventListener('click', () => {
     if(numOne !== null && numTwo !== null && operator !== null) {
-        numOne = operate();
-        updateScreenValue(numOne);
+        operate();
     }
 })
 
