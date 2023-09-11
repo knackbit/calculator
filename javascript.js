@@ -1,3 +1,36 @@
+let numOne = null; 
+let numTwo = null;
+let operator = null;
+let screenValue = 0;
+displayEle = document.getElementById("display")
+displayEle.textContent = screenValue;
+
+let btn = document.querySelectorAll('.number');
+btn.forEach(element => {
+    element.addEventListener('click', (e) => {
+        checkEquationNumbers(Number(e.target.textContent));
+    })
+});
+
+let opBtn = document.querySelectorAll('.operator');
+opBtn.forEach(element => {
+    element.addEventListener('click', (e) => {
+        updateOperator(e.target.textContent);
+    })
+})
+
+document.querySelector('#equals').addEventListener('click', () => {
+    if(numOne !== null && numTwo !== null && operator !== null) {
+        operate();
+        //prevents successive equal input from executing operate
+        numTwo = null;
+    }
+})
+
+document.querySelector('#clear').addEventListener('click', () => {
+    clear();
+})
+
 const add = function(intOne, intTwo) {
     return intOne + intTwo;	
 }
@@ -15,21 +48,30 @@ const divide = function(intOne, intTwo) {
 }
 
 
-let numOne = null; 
-let numTwo = null;
-let operator = null;
-
-
-let screenValue = 0;
-document.getElementById("display").textContent = screenValue;
-
-// function that takes in operateObj and calls the appropriate function to do the math based on operateObj.operator
+// checks what the operator is, calls the oppropriate func to get the result and updates the screenvalue with the result
 const operate = function() {
-    return operator === "+" ? add(numOne, numTwo)
-        : operator === "-" ? subtract(numOne, numTwo)
-        : operator === "/" ? divide(numOne, numTwo)
-        : operator === "*" ? multiply(numOne, numTwo)
-        : "No Operator";
+    if(operator === "/" && numTwo === 0) {
+        updateScreenValue("self-destructing");
+        numOne = null;
+        numTwo = null;
+        operator = null;
+    }
+    else if(operator === "+") {
+        numOne = checkLengthMax(add(numOne, numTwo));
+        updateScreenValue(numOne);
+    }
+    else if(operator === "-") {
+        numOne = checkLengthMax(subtract(numOne, numTwo));
+        updateScreenValue(numOne);
+    }
+    else if(operator === "/") {
+        numOne = checkLengthMax(divide(numOne, numTwo));
+        updateScreenValue(numOne);
+    }
+    else if(operator === "*") {
+        numOne = checkLengthMax(multiply(numOne, numTwo));
+        updateScreenValue(numOne);
+    }
 }
 
 // checks which number of the equation to append the number
@@ -42,57 +84,59 @@ function checkEquationNumbers(eventNumber) {
     }
 }
 
-
+// appends addNum to the right of current num and updates the screen value with the result
+// example: appendNumber(2, 1) returns 21
 function appendNumber(currentNum, addNum) {
     if(currentNum === null) {
         currentNum = addNum;
-        screenValue = currentNum;
+        updateScreenValue(currentNum);
         return currentNum;
     }
     else{
-        currentNum = Number(currentNum + toString(addNum));
-        screenValue = currentNum;
+        currentNum = checkLengthMax(Number(currentNum + addNum.toString()));
+        updateScreenValue(currentNum);
         return currentNum;
     }            
+}
+
+function updateScreenValue(updateValue) {
+    screenValue = updateValue;
+    displayEle.textContent = screenValue
+}
+
+
+function updateOperator(eventOperator) {
+    if(numTwo !== null) {
+        operate();
+        operator = eventOperator.toString();
+        //prevents calling operate on successive operator inputs
+        numTwo = null;  
     }
+    // check if operator is input before a number
+    else if(numOne === null) {
+        numOne = 0;
+        operator = eventOperator.toString();
+    }
+    else {
+        operator = eventOperator.toString();
+    }
+}
+
+function checkLengthMax(num) {
+    if(num.toString().length > 15) {
+        return Number(num.toString().slice(0, 15));
+    }
+    else return num;
+}
 
 
-/*
-Enter a number and three possible states
-    If operateObj.numOne = null
-        numOne = eventnumber
-        screenvalue = numOne
-    If operateObj.numOne != null
-        If operateobj.operator = null
-            appendNumber(operateObj.numOne, eventnumber)
-            screenvalue = numOne
-        If operateobj.operator != null
-            If numTwo = null
-                numTwo = eventnumber
-            if numbTwo != null
-                appendNumber(operateObj.numTwo, eventnumber)
-                screenvalue = numtwo
-    
+function clear() {
+    numOne = null;
+    numTwo = null;
+    operator = null;
+    updateScreenValue(0);
+}
 
-
-
-appendNumber(currentNum, addNum) {
-    currentNum = Number(currentNum + toString(addNum))
-}            
-assign event listeners to all numbers on click
-        If screenValue is equal to 0 (as in the display was cleared)
-            set screenValue equal to eventValue
-        else if not 0 (there's already a number entered)
-            screenValue equal to Number(screenValue + string(eventValue)) (appends number to end of current value)
-assign event listener to all operator buttons
-
-    
-*/
-
-// let btn = document.querySelectorAll('button');
-// btn.forEach(element => {
-//     element.addEventListener('click')
-// });
 
 
 module.exports = {
