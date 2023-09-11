@@ -22,6 +22,8 @@ opBtn.forEach(element => {
 document.querySelector('#equals').addEventListener('click', () => {
     if(numOne !== null && numTwo !== null && operator !== null) {
         operate();
+        //prevents successive equal input from executing operate
+        numTwo = null;
     }
 })
 
@@ -64,7 +66,7 @@ const operate = function() {
     }
     else if(operator === "/") {
         numOne = divide(numOne, numTwo);
-        updateScreenValue(numOne)
+        updateScreenValue(numOne);
     }
     else if(operator === "*") {
         numOne = multiply(numOne, numTwo);
@@ -82,7 +84,8 @@ function checkEquationNumbers(eventNumber) {
     }
 }
 
-
+// appends addNum to the right of current num and updates the screen value with the result
+// example: appendNumber(2, 1) returns 21
 function appendNumber(currentNum, addNum) {
     if(currentNum === null) {
         currentNum = addNum;
@@ -106,8 +109,10 @@ function updateOperator(eventOperator) {
     if(numTwo !== null) {
         operate();
         operator = eventOperator.toString();
-        numTwo = null;
+        //prevents calling operate on successive operator inputs
+        numTwo = null;  
     }
+    // check if operator is input before a number
     else if(numOne === null) {
         numOne = 0;
         operator = eventOperator.toString();
