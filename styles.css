@@ -35,6 +35,7 @@ button {
 
 #display {
     text-align: right;
+    font-size: 4em;
 }
 
 .item-container {
@@ -44,4 +45,9 @@ button {
     flex: 1;
     background-color: rgb(73, 73, 73);
     padding: 1em;
+}
+
+#display-row {
+    justify-content: flex-end;
+    align-items: center;
 }
