@@ -57,19 +57,19 @@ const operate = function() {
         operator = null;
     }
     else if(operator === "+") {
-        numOne = add(numOne, numTwo);
+        numOne = checkLengthMax(add(numOne, numTwo));
         updateScreenValue(numOne);
     }
     else if(operator === "-") {
-        numOne = subtract(numOne, numTwo);
+        numOne = checkLengthMax(subtract(numOne, numTwo));
         updateScreenValue(numOne);
     }
     else if(operator === "/") {
-        numOne = divide(numOne, numTwo);
+        numOne = checkLengthMax(divide(numOne, numTwo));
         updateScreenValue(numOne);
     }
     else if(operator === "*") {
-        numOne = multiply(numOne, numTwo);
+        numOne = checkLengthMax(multiply(numOne, numTwo));
         updateScreenValue(numOne);
     }
 }
@@ -93,14 +93,14 @@ function appendNumber(currentNum, addNum) {
         return currentNum;
     }
     else{
-        currentNum = Number(currentNum + addNum.toString());
+        currentNum = checkLengthMax(Number(currentNum + addNum.toString()));
         updateScreenValue(currentNum);
         return currentNum;
     }            
 }
 
 function updateScreenValue(updateValue) {
-    screenValue = updateValue
+    screenValue = updateValue;
     displayEle.textContent = screenValue
 }
 
@@ -121,6 +121,14 @@ function updateOperator(eventOperator) {
         operator = eventOperator.toString();
     }
 }
+
+function checkLengthMax(num) {
+    if(num.toString().length > 15) {
+        return Number(num.toString().slice(0, 15));
+    }
+    else return num;
+}
+
 
 function clear() {
     numOne = null;
